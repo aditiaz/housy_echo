@@ -34,7 +34,7 @@ func UploadFile(next echo.HandlerFunc) echo.HandlerFunc {
 			cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
 
 			// Upload file to Cloudinary ...
-			resp, err := cld.Upload.Upload(ctx, src, uploader.UploadParams{Folder: "refactor-dumbmerch"})
+			resp, err := cld.Upload.Upload(ctx, src, uploader.UploadParams{Folder: "uploads"})
 
 			if err != nil {
 				fmt.Println(err.Error())
