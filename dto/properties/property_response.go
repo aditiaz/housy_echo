@@ -9,7 +9,7 @@ type PropertyResponse struct {
 	City          string  `json:"city" `
 	Address       string  `json:"address"`
 	Price         float64 `json:"price"`
-	TypeRent      string  `json:"type_of_rent" `
+	TypeRent      string  `json:"type_rent" `
 	// Amenities     string `json:"amenities"`
 	Amenities   datatypes.JSON `json:"amenities" `
 	Bedroom     int            `json:"bedroom"`

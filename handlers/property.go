@@ -14,10 +14,6 @@ import (
 	"gorm.io/datatypes"
 )
 
-var path_file = "http://localhost:5000/uploads/"
-
-//  http://localhost:5000/uploads/xxx.png
-
 type handlerProperty struct {
 	PropertyRepository repositories.PropertyRepository
 }
@@ -35,10 +31,6 @@ func (h *handlerProperty) FindProperties(c echo.Context) error {
 			Message: err.Error()})
 	}
 
-	for i, p := range products {
-		products[i].Image = path_file + p.Image
-	}
-
 	return c.JSON(http.StatusOK, dto.SuccessResult{
 		Code: http.StatusOK,
 		Data: products})
@@ -46,19 +38,18 @@ func (h *handlerProperty) FindProperties(c echo.Context) error {
 
 func (h *handlerProperty) GetProperty(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
-	product, err := h.PropertyRepository.GetProperty(id)
 
+	var property models.Property
+	property, err := h.PropertyRepository.GetProperty(id)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{
 			Code:    http.StatusInternalServerError,
 			Message: err.Error()})
 	}
 
-	product.Image = path_file + product.Image
-
 	return c.JSON(http.StatusOK, dto.SuccessResult{
 		Code: http.StatusOK,
-		Data: convertProductResponse(product)})
+		Data: convertProductResponse(property)})
 }
 
 func (h *handlerProperty) AddProperty(c echo.Context) error {
@@ -74,7 +65,7 @@ func (h *handlerProperty) AddProperty(c echo.Context) error {
 		City:          c.FormValue("city"),
 		Address:       c.FormValue("address"),
 		Price:         float64(price),
-		TypeRent:      c.FormValue("type_of_rent"),
+		TypeRent:      c.FormValue("type_rent"),
 		Amenities:     datatypes.JSON(c.FormValue("amenities")),
 		Bedroom:       bedroom,
 		Bathroom:      bathroom,
@@ -93,9 +84,6 @@ func (h *handlerProperty) AddProperty(c echo.Context) error {
 		})
 	}
 
-	// userLogin := c.Get("userLogin")
-	// userId := userLogin.(jwt.MapClaims)["id"].(float64)
-
 	property := models.Property{
 		Name_Property: request.Name_Property,
 		City:          request.City,
@@ -107,7 +95,7 @@ func (h *handlerProperty) AddProperty(c echo.Context) error {
 		Bathroom:      request.Bathroom,
 		Sqf:           request.Sqf,
 		Description:   request.Description,
-		Image:         request.Image,
+		Image:         dataFile,
 		// User_Id: request.User_Id,
 
 	}

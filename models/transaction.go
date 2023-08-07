@@ -7,7 +7,7 @@ type Transaction struct {
 	PropertyID int      `json:"property_id"`
 	Property   Property `json:"property"`
 	UserID     int      `json:"user_id"`
-	User       User     `json:"user"`
+	User       User     `json:"user" gorm:"foreignKey:UserID"`
 	Price      int      `json:"price"`
 	Status     string   `json:"status"`
 }
