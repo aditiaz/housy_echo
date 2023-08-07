@@ -5,6 +5,7 @@ import (
 	"housy/database"
 	"housy/pkg/mysql"
 	"housy/routes"
+	"os"
 
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
@@ -29,6 +30,7 @@ func main() {
 
 	e.Static("/uploads", "./uploads")
 
-	fmt.Println("server running localhost:5000")
-	e.Logger.Fatal(e.Start("localhost:5000"))
+	var PORT = os.Getenv("PORT")
+	fmt.Println("server running :", PORT)
+	e.Logger.Fatal(e.Start(":" + PORT))
 }
