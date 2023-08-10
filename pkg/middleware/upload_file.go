@@ -14,6 +14,7 @@ import (
 func UploadFile(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		file, err := c.FormFile("image")
+
 		if file != nil {
 			if err != nil {
 				return c.JSON(http.StatusBadRequest, err)
@@ -34,7 +35,7 @@ func UploadFile(next echo.HandlerFunc) echo.HandlerFunc {
 			cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
 
 			// Upload file to Cloudinary ...
-			resp, err := cld.Upload.Upload(ctx, src, uploader.UploadParams{Folder: "uploads"})
+			resp, err := cld.Upload.Upload(ctx, src, uploader.UploadParams{Folder: "refactor-dumbmerch"})
 
 			if err != nil {
 				fmt.Println(err.Error())
