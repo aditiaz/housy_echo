@@ -53,6 +53,7 @@ func (h *handlerProperty) GetProperty(c echo.Context) error {
 }
 
 func (h *handlerProperty) AddProperty(c echo.Context) error {
+	var err error
 	dataFile := c.Get("dataFile").(string)
 	fmt.Println("this is data file", dataFile)
 
@@ -71,12 +72,12 @@ func (h *handlerProperty) AddProperty(c echo.Context) error {
 		Bathroom:      bathroom,
 		Sqf:           c.FormValue("sqf"),
 		Description:   c.FormValue("description"),
-		Image:         dataFile,
+		Image:         dataFile, //https://res.cloudinary.adosvosdakfoasdk
 		// User_Id: userId,
 	}
 
 	validation := validator.New()
-	err := validation.Struct(request)
+	err = validation.Struct(request)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{
 			Code:    http.StatusInternalServerError,

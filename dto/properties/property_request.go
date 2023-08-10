@@ -16,6 +16,6 @@ type PropertyRequest struct {
 	Bathroom    int            `json:"bathroom"`
 	Sqf         string         `json:"sqf"`
 	Description string         `json:"description"`
-	Image       string         `json:"image" `
+	Image       string         `json:"image"  form:"image"`
 	// User_Id       int    `json:"user_id"`
 }
